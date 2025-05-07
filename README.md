@@ -39,28 +39,32 @@ The Active-Directory Lab project is aimed to To deepen my expertise in cybersecu
 
 1. Create a logical Diagram for mapping out lab environment<br><br>
 ![Copy of ActiveDirectoryProjectDiagram2](https://github.com/user-attachments/assets/810ba3df-60eb-4851-9274-6bfe81e30f8e)
-<br>*Ref 1: Network Diagram*<br>
+<br>*Ref 1: Logical Diagram*<br><br>
+<p>My lab environment includes 2 computers, the blue one represents a terget machine running Windows 10 and the red one representing an attacker machine running on kali linux. My lab also includes 2 servers, one running Windows Server 2022 acting as my domain controller with an Active Directory domain, and the other running Ubuntu Server acting as my Splunk server. Both the Windows 10 target machine and Windows Server will have Sysmon for collecting data on my machines and Splunk Universal Forwarder installed so it can send data to my Splunk Server. Each machine is set up with a static ip address.</p>
 
 3. Set Up Virtual Lab Environment:
-Installed and configured VirtualBox to host multiple virtual machines, simulating an enterprise-like network.<br><br>
-![VBoxMachines](https://github.com/user-attachments/assets/ece6e81b-d9c2-4aed-922c-417a253a7ca7)
 <br><br>
-- **Windows 10 Client:** 
-- **Kali Linux:** Installed Kali Linux for offensive testing
-- **Windows Server 2022:** Installed Windows Server and configured it as a Domain Controller to establish an Active Directory domain
-- **Ubuntu Server:** Installed and configured Splunk Enterprise to collect, index, and analyze security event data.
-  <br>
-7. Configure Active Directory:
-Created users, groups, and organizational units (OUs); implemented group policies to simulate a realistic domain environment.
+![VBoxMachines](https://github.com/user-attachments/assets/ece6e81b-d9c2-4aed-922c-417a253a7ca7)
+<p>All 4 virtual machines set up</p>
 
-8. Install and Configure Splunk Forwarder:
-Deployed and configured the Splunk Universal Forwarder on both the Windows 10 target machine and the Windows Server 2022 domain controller to enable log forwarding to Splunk Enterprise. 
+4. Install and Configure Splunk Enterprise on Ubuntu Server:
+<p>I installed Splunk Enterprise 9.4.2 on my Ubuntu server and configured it to run on start up.</p>
 
-9. Install and Configure Sysmon:
-Installed and configured Sysmon on both the Windows 10 target machine and the Windows Server 2022 domain controller to enhance system-level logging and visibility for security event monitoring.
+5. Install and Configure Splunk Forwarder:
+<p>Deployed and configured the Splunk Universal Forwarder on both the Windows 10 target machine and the Windows Server 2022 domain controller to enable log forwarding to Splunk Enterprise.</p>
 
-10. Run Atomic Red Team Tests:
-Executed adversary emulation techniques using Atomic Red Team to simulate real-world threats aligned with the MITRE ATT&CK framework.
+6. Install and Configure Sysmon:
+<p>Installed and configured Sysmon on both the Windows 10 target machine and the Windows Server 2022 domain controller to enhance system-level logging and visibility for security event monitoring.</p>
+
+7. Install and Configure Active Directory on Windows Server 2022:
+<p>Installed Active Directory on my server then promoted it to a domain controller. I then proceeded to create 2 Organizational Units, HR and IT, each with 1 user. I was then able to connect my Windows 10 Machine to my new domain.</p>
+
+8. Use Kali Linux to perform a brute force attack:
+<p></p>
+
+9. Run Atomic Red Team Tests:
+<p>Executed adversary emulation techniques using Atomic Red Team to simulate real-world threats aligned with the MITRE ATT&CK framework.</p>
+
 
 11. Ingest Attack Telemetry into Splunk:
 Ensured that Sysmon and Windows Event logs captured Atomic Red Team activity and were properly ingested into Splunk.
