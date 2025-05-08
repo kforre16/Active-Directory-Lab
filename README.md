@@ -95,21 +95,42 @@ Join Target Windows PC to new Domain:
 
 ## Part 5
 
-Use Kali Linux to perform a Brute Force Attack on newly created users and view telemetry via Splunk:
+**Use Kali Linux to perform a Brute Force Attack on newly created users and view telemetry via Splunk:**
 <br>
 <p>I installed a kali linux tool called Crowbar. I used a kali linux wordlist called rockyou and transfered the first 20 lines to a passwords.txt file. For the scenario I want to create I have added the correct password at the end of the document to create a successful login. I used the command to utile the the rdp service and will be brute forcing the account tsmith I created earlier.</p>
 
 ![KaliLinuxCrowbar](https://github.com/user-attachments/assets/15e25cc7-19d2-430a-be57-733f22396bb7)
 
-<p>In Splunk I search for events related to the user tsmith and find the following results.</p>
-<p></p>
+<p>In Splunk I search for events related to the user tsmith:</p>
 
-Setup and Install Atomic Red Team and run Atomic Tests:
+![image](https://github.com/user-attachments/assets/85ecc4f6-77c0-41ed-ba78-26f57116206a)
+
+<p>The search shows 23 results, 20 of which relate the the EventCode 4625 which Ultimate Windows Security means that an account failed to logon which corresponds to the passwords.txt file containing 21 passwords with one of them being the correct password. The results of EventCode 4625 show the login attempts happening at around the same time, indicating a brute force attack.</p>
+
+![image](https://github.com/user-attachments/assets/72d10336-e844-4a55-90dd-0a100c49fde8)
+
+<p>There was 1 sussedful login attempt indicated by the Event code 4624 means An account was successfully logged on</p>
+
+![image](https://github.com/user-attachments/assets/e4816cd0-1aad-4372-8ee0-6ca8bdfb8e2a)
+
+<p>Expanding the event shows that the source of the login was from my kali linux machine.</p>
+
+![image](https://github.com/user-attachments/assets/64656e27-a424-4cad-84c6-d390a458be0e)
+
+**Setup and Install Atomic Red Team and run Atomic Tests:**
 <br>
 <p>Installed Atomic Red Team on my Windows target machine. Used MITRE Attack to lookup different scenarios to test on my system. I chose the Create Account: Local Account (T1136.01) which Adversaries may create a local account to maintain access to victim systems.</p>
-<p>The second test I chose was the Command and Scripting Interpreter: PowerShell (T1059.01) which Adversaries may abuse PowerShell commands and scripts for execution.</p>
+
+![image](https://github.com/user-attachments/assets/785ca092-e029-4928-b0b8-355304fa6829)
+
+<p>In Splunk, the search results for NewLocalUser shows 12 results.</p>
+
+![image](https://github.com/user-attachments/assets/9ba59b57-7929-4c36-bb86-fb83e4a6267e)
 
 ## Part 6
 
-Build Detection Rules & Alerts:
-Created custom detection logic and alerts in Splunk to flag malicious behaviors and validate detections.
+**Build Detection Rules & Alerts:**
+<br>
+<p>Now that I can create telemetry within my lab I can know focus on creating alerts in Splunk to flag malicious behaviors.</p>
+<p></p>
+
