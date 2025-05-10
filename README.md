@@ -132,5 +132,22 @@ Join Target Windows PC to new Domain:
 **Build Detection Rules & Alerts:**
 <br>
 <p>Now that I can create telemetry within my lab I can know focus on creating alerts in Splunk to flag malicious behaviors.</p>
-<p></p>
+<p>I will use the brute force attack scenario I used earlier to test out an alert that detects such an attack.</p>
+<p>I used a post from NetwerkLabs on <a href="https://netwerklabs.com/detect-brute-force-attacks-using-splunk/">Detecting brute force attacks using Splunk</a> to build out my alert.</p>
+<p>I was able to come up with the following query:</p>
+
+```
+index="endpoint" EventCode=4625 | bin _time span=5m | stats count by Account_Name, Source_Network_Address, _time | where count >=10
+```
+Explanation:
+- This query searches for log entries containing the event code 4625 indicating a failed log on attempt.
+- bin _time span=5m: Buckets time into 5-minute intervals.
+- stats count by Account_Name, Source_Network_Address, _time: Groups attempts by account and Source IP over each 5-minute window.
+- where count >= 10: Only keeps records with 10 or more failed login attempts— which could be indicative of a brute force attempt.
+
+Alert Configuration:
+
+![image](https://github.com/user-attachments/assets/88d45153-5503-4094-9921-be3e4dc8ee9e)
+
+After saving the alert, I ran the crowbar command from kali linux again to trigger the alert.
 
